@@ -15,5 +15,5 @@ router.get('/usuario/:idUsuario', CotizacionController.getCotizacionByIdUsuario)
 router.get('/cliente/:idCliente', CotizacionController.getCotizacionByIdCliente);
 router.get('/asegurado/:idAsegurado', CotizacionController.getCotizacionByIdAsegurado);
 router.get('/seguro/:idSeguro', CotizacionController.getCotizacionByIdSeguro);
-
+    
 module.exports = router;

@@ -21,9 +21,29 @@ const caratulaBanco = require('./routes/documentos_persona_caratula_banco.routes
 const documentoAfiliacion = require('./routes/documentos_persona_documento_afiliacion.routes');
 
 const App = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-App.use(cors());
+const allowedOrigins = [
+  "https://staging.d2g7u9oponhw6t.amplifyapp.com",
+  "192.168.100.15" // Agregado para permitir acceso desde esta IP
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+      // Permitir peticiones sin origin (como curl o Postman) o desde orígenes permitidos
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('No autorizado por CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  };
+  
+  // Usar CORS en tu app
+  App.use(cors(corsOptions));
 
 App.use(bodyParser.json());
 App.use(fileUpload());
